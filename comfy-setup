@@ -1,0 +1,56 @@
+#! /bin/bash
+
+confirm="y"
+read -p "This script will install a bunch of stuff, u ready ? [y/n]" -r;
+if [ "$REPLY" != "$confirm" ]; then
+    echo "k no prob, bai";
+    exit;
+fi
+sshpath=$1;
+ow=1
+if [ -z "$sshpath" ]
+then
+    echo "No .ssh path given, .ssh will not be overwritten.";
+    read -p "Continue ? [y/n] " -r;
+    if [ "$REPLY" != "$confirm" ]; then
+        echo "Aborted.";
+        exit;
+    fi
+    ow=0
+    echo ;
+fi
+echo "A prompt will maybe ask you if it's okay to restart services and stuff";
+echo "Select 'Yes' on it. Press Enter to continue...";
+read;
+sudo apt update;
+sudo apt upgrade -y;
+if [ "$ow" = "1" ]; then
+    rm -rf ~/.ssh;
+    cp -r ${sshpath} ~/.ssh;
+    chmod 600 ~/.ssh/*;
+    chown $USER:$USER ~/.ssh/*;
+fi
+cd;
+git clone git@github.com:echoffee/comfy-env.git;
+success=$?;
+if [ "$success" != "0" ]; then
+    echo "Repo couldn't be cloned. Did you set the correct ssh keys ?";
+    exit;
+fi
+cp -r comfy-env/bin comfy-env/config .;
+cp -r comfy-env/.vimrc comfy-env/.bashrc comfy-env/.gitconfig  .;
+cp -r comfy-env/colorschemes ./colors-for-mintty;
+rm -rf comfy-env;
+sudo apt install ranger -y;
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf;
+~/.fzf/install;
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim ;
+read -p "Set links to drives directly at / ? [y/n]" -r
+if [ "$REPLY" = "$confirm" ]; then
+    ln -s /mnt/* .;
+fi
+clear;
+echo " comfy environnement set !"
+echo " run 'source .bashrc' to update the shell";
+echo " run vim +PlugInstall on the first start to download and install its plugins";
+
