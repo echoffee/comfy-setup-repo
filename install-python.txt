@@ -1,0 +1,13 @@
+To install Python on both Linux and Windows:
+
+1. Install Python on Windows on a shared drive (like not in c:/)
+2. Install Python on Linux with apt install python3
+3. Install pip on Linux with apt install python3-pip
+4. Remove the directory ~/.local/lib/python3.x/site-packages
+5. Create a link from this directory to the Windows-side site-package :
+    ln -s /mnt/d/python/Lib/site-packages ~/.local/libs/python3.x/site-packages
+6. Install Tensorflow
+
+IF PIP BREAKS SOMEHOW because it FUCKING HAPPENS EVERYTIME:
+1. Unistall pip: python -m pip uninstall pip
+2. Try again : apt install python3-pip 

@@ -1,0 +1,5 @@
+# !/bin/sh
+
+major_ver=$1
+curl -sL https://deb.nodesource.com/setup_$major_ver.x | sudo -E bash -
+sudo apt install nodejs
