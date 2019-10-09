@@ -1,0 +1,29 @@
+A set of scripts to set up a working WSL environment after a massive fuckup or a new Windows installation.
+
+Beware :
+    The script clones some stuff from my Github private repositories, so of course the script won't really work
+    for other people lol
+
+What it does
+--------------------
+1. System update
+2. Generate SSH key
+3. Apply ricing, shortcuts and binaries saved on https://github.com/echoffee/comfy-env
+4. Install a few tools such as Ranger
+5. Install the Vim environment saved at the same place as 3.
+6. Apply links to /mnt/ drives
+7. Give commands to save all of this
+
+Usage
+--------------------
+1. Clone this repo : 
+    git clone https://github.com/echoffee/comfy-setup-repo
+2. Run the main script :
+    ./comfy-setup-repo/comfy-setup
+3. Follow the instructions.
+
+Other scripts
+--------------------
+* install-node X
+    Installs the Xth version of NodeJS fromthe Ubuntu repo there : https://github.com/nodesource/distributions
+

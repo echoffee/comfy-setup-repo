@@ -59,4 +59,4 @@ fi
 clear;
 echo " comfy environnement set !"
 echo " run 'source .bashrc' to update the shell";
-echo " run vim +PlugInstall on the first start to download and install its plugins";
+echo " run 'vim +PlugInstall' on the first start to download and install its plugins. The startup error about a missing 'comfy' thing is normal and will be fixed after that.";
