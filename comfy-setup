@@ -20,7 +20,7 @@ read;
 sudo apt update;
 sudo apt upgrade -y;
 if [ "$ow" = "1" ]; then
-    ssh-keygen -N "" -f ~/.ssh/id_rsa;
+    ssh-keygen -f ~/.ssh/id_rsa;
 fi
 cd;
 cat ~/.ssh/id_rsa.pub | clip.exe;
