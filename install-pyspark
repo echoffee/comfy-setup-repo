@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "This will install the latest pyspark version and openjdk-8";
+read;
+sudo apt-get-repository ppa:openjdk-r/ppa;
+sudo apt update;
+sudo apt install -y openjdk-7-jdk;
+python -m pip install pyspark --user;
+rootpath=python -m site --user-site;
+echo "spark home is at: $rootpath/pyspark";
+echo "add these lines to .bashrc if needed:";
+echo "export SPARK_HOME=$rootpath/pyspark";
+echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64";
