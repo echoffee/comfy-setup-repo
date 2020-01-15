@@ -1,6 +1,35 @@
 #! /bin/bash
 
 confirm="y"
+installReply="install"
+updateReply="update"
+fullInstall=0
+read -p "What you wanna do bro ? [install/update] :" -r;
+if [ "$REPLY" == "$installReply" ]; then
+    fullInstall=1
+fi
+if [ "$REPLY" != "$updateReply" ]; then
+    echo "sry I didn't understand what you said, bai";
+    exit;
+fi
+if [ "$fullInstall" = "0"]; then
+    sudo apt update;
+    sudo apt upgrade -y;
+    echo "Done.";
+    git clone git@github.com:echoffee/comfy-env.git;
+    success=$?;
+    if [ "$success" != "0" ]; then
+        echo "Repo couldn't be cloned. Did you set the SSH Key ? You can re-run this script once it's been fixed.";
+        exit;
+    fi
+    cp -r comfy-env/bin comfy-env/config .;
+    cp -r comfy-env/.vimrc comfy-env/.bashrc comfy-env/.gitconfig  .;
+    cp -r comfy-env/colorschemes/mintty ./colors-for-mintty;
+    cp -r comfy-env/colorschemes/win-terminal ./colors-for-win-terminal;
+    rm -rf comfy-env;
+    echo " run 'rez' to update the shell";
+    exit;
+fi
 read -p "This script will install a bunch of stuff, u ready ? [y/n] :" -r;
 if [ "$REPLY" != "$confirm" ]; then
     echo "k no prob, bai";
@@ -34,12 +63,13 @@ fi
 git clone git@github.com:echoffee/comfy-env.git;
 success=$?;
 if [ "$success" != "0" ]; then
-    echo "Repo couldn't be cloned. Did you set the SSH Key ?";
+    echo "Repo couldn't be cloned. Did you set the SSH Key ? You can re-run this script once it's been fixed.";
     exit;
 fi
 cp -r comfy-env/bin comfy-env/config .;
 cp -r comfy-env/.vimrc comfy-env/.bashrc comfy-env/.gitconfig  .;
-cp -r comfy-env/colorschemes ./colors-for-mintty;
+cp -r comfy-env/colorschemes/mintty ./colors-for-mintty;
+cp -r comfy-env/colorschemes/win-terminal ./colors-for-win-terminal;
 rm -rf comfy-env;
 
 git clone git@github.com:echoffee/vimwiki.git;
